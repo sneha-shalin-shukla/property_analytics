@@ -24,5 +24,11 @@ Route::group([
   'middleware' => ['auth:api']
 ], function () {
     Route::resource('properties', 'PropertyController');
-    
+    Route::resource('analytic_types', 'AnalyticTypeController');
+    Route::resource('property_analytics', 'PropertyAnalyticsController');
+    Route::get('property_analytics/summary/{filter}/{value}', 'PropertyAnalyticsController@showSummary');
 });
+
+Route::fallback(function(){
+    return response()->json(['message' => 'Not Found.'], 404);
+})->name('api.fallback.404');
